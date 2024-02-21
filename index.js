@@ -14,6 +14,15 @@ function getDateDetails(date) {
   // Якщо date не є об'єктом Date, повертаємо рядок
   // "Помилка: вхідне значення має бути об'єктом Date"
   // Повертаємо об'єкт, що містить деякі деталі про вхідний об'єкт Date.
+  if (typeof date.getTime !== 'function') {
+    return "Помилка: вхідне значення має бути об'єктом Date";
+}
+
+return {
+    day: date.getDate(),
+    month: date.getMonth() + 1,
+    year: date.getFullYear(),
+};
 }
 
 console.log("Завдання: 1 ==============================");
@@ -38,6 +47,15 @@ function setDateDetails(date, isoString) {
   //  якщо ні виводимо повідомлення "Помилка: недійсний ISO рядок"
   // Встановлюємо дату з ISO рядка в об'єкт Date.
   // Повертаємо об'єкт Date з встановленою датою.
+  if (typeof date.getTime !== 'function') {
+    return "Помилка: вхідне значення має бути об'єктом Date";
+  }
+  const date = new Date(isoString);
+  if (isNaN(date.getTime())) {
+      return "Помилка: недійсний ISO рядок";
+  }
+
+  return date;
 }
 
 console.log("Завдання: 2 ==============================");
@@ -58,6 +76,10 @@ function dateToUTC(date) {
   // Якщо date не є об'єктом Date, повертаємо рядок
   // "Помилка: вхідне значення має бути об'єктом Date"
   // Повертаємо рядок з датою в UTC форматі.
+  if (typeof date.getTime !== 'function') {
+    return "Помилка: вхідне значення має бути об'єктом Date";
+  }
+  return Date.UTC(date);
 }
 
 console.log("Завдання: 3 ==============================");
@@ -82,6 +104,11 @@ function setSpecificTime(date, hours, minutes, seconds, milliseconds) {
   // "Помилка: вхідне значення має бути об'єктом Date"
   // Встановлюємо конкретний час в об'єкті Date за допомогою setHours.
   // Повертаємо об'єкт Date з встановленим часом.
+  if (typeof date.getTime !== 'function') {
+    return "Помилка: вхідне значення має бути об'єктом Date";
+  }
+  date.setHours(hours, minutes, seconds, milliseconds)
+  return date;
 }
 
 console.log("Завдання: 4 ==============================");
@@ -140,6 +167,11 @@ function isLeapYear(year) {
   // Перевірка, чи є рік високосним.
   // Високосним вважається рік, який ділиться націло на 4
   // Повертаємо об'єкт з роком та інформацією про те, чи є він високосним.
+  if (isNaN(year)) {
+    return "Помилка: вхідне значення не є числом";
+  }
+  const isLeap = (year % 4 === 0);
+  return  {year: year, isLeap: isLeap};
 }
 console.log("Завдання: 6 ==============================");
 
@@ -171,6 +203,17 @@ function addDays(date, days) {
   // Додавання заданої кількості днів до дати.
   // Збереження результуючої дати для виведення в форматі ISO.
   // Повертаємо об'єкт з початковою датою, кількістю доданих днів та результуючою датою.
+  if (typeof date.getTime !== 'function') {
+    return "Помилка: вхідне значення має бути об'єктом Date";
+  }
+  if (!isNaN(days)) {
+    return "Помилка: кількість днів має бути числом.", undefined;
+  }
+  const inputDate = new Date(date.getTime());
+    const resultDate = new Date(inputDate.setDate(inputDate.getDate() + days));
+
+    return  {inputDate: inputDate.toISOString(), addedDays: days, resultDate: resultDate.toISOString()};
+
 }
 
 console.log("Завдання: 7 ==============================");
@@ -213,6 +256,15 @@ function getDayOfWeek(date) {
   // Отримання дня тижня як числа (0 - неділя, 1 - понеділок, ..., 6 - субота).
   // Отримання назви дня тижня з масиву daysOfWeek за індексом.
   // Повертаємо об'єкт з початковою датою та днем тижня.
+  if (typeof date.getTime !== 'function') {
+    return "Помилка: вхідне значення має бути об'єктом Date";
+  }
+  const inputDate = new Date(date.getTime());
+  const daysOfWeek = ["Неділя", "Понеділок", "Вівторок", "Середа", "Четвер", "П'ятниця", "Субота"];
+    const dayIndex = date.getDay();
+    const dayOfWeek = daysOfWeek[dayIndex];
+
+    return  {inputDate: date.toISOString(), dayOfWeek: dayOfWeek};
 }
 
 console.log("Завдання: 8 ==============================");
@@ -326,6 +378,7 @@ function compareDates(date1, date2) {
   // Порівняння дат і отримання результату порівняння: -1, якщо date1 < date2, 0, якщо date1 === date2, 1, якщо date1 > date2.
   // Збереження дат для виведення  в форматі ISO.
   // Повертаємо об'єкт з порівнюваними датами та результатом порівняння.
+  
 }
 console.log("Завдання: 12 ==============================");
 
