@@ -50,7 +50,6 @@ function setDateDetails(date, isoString) {
   if (typeof date.getTime !== 'function') {
     return "Помилка: вхідне значення має бути об'єктом Date";
   }
-  const date = new Date(isoString);
   if (isNaN(date.getTime())) {
       return "Помилка: недійсний ISO рядок";
   }
